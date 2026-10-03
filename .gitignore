@@ -1,0 +1,6 @@
+node_modules
+.next
+.env.local
+.env.password-reset.local
+scripts/reset-existing-organizer-password.mjs
+tsconfig.tsbuildinfo

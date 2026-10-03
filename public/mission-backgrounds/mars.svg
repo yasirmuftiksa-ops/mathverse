@@ -1,0 +1,85 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid slice">
+  <defs>
+    <linearGradient id="marsSky" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0%" stop-color="#090d14"/>
+      <stop offset="48%" stop-color="#1b0f0d"/>
+      <stop offset="100%" stop-color="#07090c"/>
+    </linearGradient>
+    <linearGradient id="marsGround" x1="0" x2="0" y1="0" y2="1">
+      <stop offset="0%" stop-color="#5f2a1b"/>
+      <stop offset="100%" stop-color="#2a130d"/>
+    </linearGradient>
+    <radialGradient id="dustGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#f0965e" stop-opacity="0.45"/>
+      <stop offset="100%" stop-color="#f0965e" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <rect width="1600" height="900" fill="url(#marsSky)"/>
+  <g opacity="0.7">
+    <circle cx="1230" cy="200" r="140" fill="#ff7f3e" opacity="0.9"/>
+    <circle cx="1130" cy="260" r="90" fill="#d65e2a" opacity="0.6"/>
+  </g>
+  <g opacity="0.35">
+    <path d="M0 520 L200 420 L330 470 L520 390 L700 500 L900 440 L1090 500 L1300 420 L1600 520 L1600 900 L0 900 Z" fill="#4a2216"/>
+    <path d="M0 620 L180 560 L440 640 L620 560 L860 660 L1120 580 L1400 640 L1600 600 L1600 900 L0 900 Z" fill="url(#marsGround)"/>
+  </g>
+
+  <g opacity="0.35">
+    <path d="M0 670 L170 650 L260 690 L350 560 L430 690 L560 575 L650 700 L770 610 L860 700 L980 590 L1100 708 L1240 620 L1360 705 L1600 670 L1600 900 L0 900 Z" fill="#35170d"/>
+    <path d="M0 760 L320 710 L480 770 L760 715 L980 790 L1220 720 L1600 780 L1600 900 L0 900 Z" fill="#1d0d0c"/>
+  </g>
+
+  <g opacity="0.7" fill="none" stroke="#f6b88b" stroke-width="2">
+    <path d="M100 760 L280 710 L360 760"/>
+    <path d="M420 780 L620 720 L700 790"/>
+    <path d="M820 780 L980 725 L1080 780"/>
+    <path d="M1180 790 L1320 720 L1450 790"/>
+  </g>
+
+  <g opacity="0.8">
+    <circle cx="150" cy="150" r="2" fill="#fff"/>
+    <circle cx="240" cy="80" r="1.6" fill="#fff"/>
+    <circle cx="380" cy="130" r="2.4" fill="#fff"/>
+    <circle cx="530" cy="95" r="1.8" fill="#fff"/>
+    <circle cx="700" cy="125" r="2" fill="#fff"/>
+    <circle cx="840" cy="80" r="1.6" fill="#fff"/>
+    <circle cx="1180" cy="120" r="2.2" fill="#fff"/>
+    <circle cx="1320" cy="70" r="1.7" fill="#fff"/>
+    <circle cx="1420" cy="150" r="2" fill="#fff"/>
+  </g>
+
+  <g opacity="0.3">
+    <path d="M0 0 L1600 0 L1600 900" fill="none" stroke="#f7c29d" stroke-width="1"/>
+    <path d="M0 150 L1600 150" stroke="#f7c29d" stroke-opacity="0.15"/>
+    <path d="M0 300 L1600 300" stroke="#f7c29d" stroke-opacity="0.15"/>
+    <path d="M0 450 L1600 450" stroke="#f7c29d" stroke-opacity="0.15"/>
+    <path d="M0 600 L1600 600" stroke="#f7c29d" stroke-opacity="0.15"/>
+    <path d="M0 750 L1600 750" stroke="#f7c29d" stroke-opacity="0.15"/>
+    <path d="M200 0 L200 900" stroke="#f7c29d" stroke-opacity="0.1"/>
+    <path d="M420 0 L420 900" stroke="#f7c29d" stroke-opacity="0.1"/>
+    <path d="M650 0 L650 900" stroke="#f7c29d" stroke-opacity="0.1"/>
+    <path d="M880 0 L880 900" stroke="#f7c29d" stroke-opacity="0.1"/>
+    <path d="M1110 0 L1110 900" stroke="#f7c29d" stroke-opacity="0.1"/>
+    <path d="M1340 0 L1340 900" stroke="#f7c29d" stroke-opacity="0.1"/>
+  </g>
+
+  <g opacity="0.4" fill="url(#dustGlow)">
+    <ellipse cx="760" cy="510" rx="440" ry="220"/>
+  </g>
+
+  <g transform="translate(1050 560)">
+    <g opacity="0.6">
+      <path d="M0 80 L110 35 L185 80 L150 145 L40 145 Z" fill="#302521"/>
+      <rect x="54" y="50" width="76" height="42" rx="6" fill="#1b1716"/>
+      <circle cx="52" cy="150" r="18" fill="#0d0d0e"/>
+      <circle cx="148" cy="150" r="18" fill="#0d0d0e"/>
+      <circle cx="52" cy="150" r="7" fill="#5d3a2d"/>
+      <circle cx="148" cy="150" r="7" fill="#5d3a2d"/>
+      <rect x="36" y="92" width="8" height="26" fill="#f4b97e"/>
+      <rect x="160" y="92" width="8" height="26" fill="#f4b97e"/>
+      <path d="M112 30 L150 70" stroke="#f4b97e" stroke-width="5" stroke-linecap="round"/>
+      <path d="M72 32 L42 72" stroke="#f4b97e" stroke-width="5" stroke-linecap="round"/>
+    </g>
+  </g>
+</svg>

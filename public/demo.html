@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><title>MATHVERSE Mission Portal — Prototype</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<style>
+:root{color-scheme:dark;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);--bg:#0b0f14;--panel:#111821;--panel2:#161f2b;--line:#243040;--tx:#dbe4ee;--mut:#8394a8;--ok:#3fb27f;--warn:#e0a03a;--crit:#e5534b;--info:#4c9be8;--acc:#5fd1c9}
+*,*:before,*:after{box-sizing:inherit}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--tx);font:15px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);background-size:44px 44px;background-attachment:fixed;overflow-x:hidden}
+body:before{content:"";position:fixed;inset:0;background:rgba(11,15,20,.93);z-index:-1}
+.mono{font-family:ui-monospace,Menlo,Consolas,monospace;letter-spacing:.06em}
+.wrap{max-width:1180px;margin:0 auto;padding:14px}
+.bar{display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between;border:1px solid var(--line);background:var(--panel);padding:10px 14px;border-radius:8px}
+.demo{color:var(--warn);border:1px solid var(--warn);padding:2px 8px;border-radius:4px;font-size:12px}
+.tabs{display:flex;gap:6px;flex-wrap:wrap}
+button{font:inherit;cursor:pointer;color:var(--tx);background:var(--panel2);border:1px solid var(--line);padding:9px 14px;border-radius:6px;letter-spacing:.04em}
+button:hover:not(:disabled){border-color:var(--acc)}
+button:disabled{opacity:.4;cursor:not-allowed}
+button.on{border-color:var(--acc);color:var(--acc)}
+button.pri{background:var(--acc);color:#04211f;border-color:var(--acc);font-weight:700}
+button.dng{border-color:var(--crit);color:var(--crit)}
+.card{border:1px solid var(--line);background:var(--panel);border-radius:8px;padding:16px;margin-top:14px}
+.card h3{margin:0 0 10px;font-size:12px;color:var(--mut);letter-spacing:.14em;font-weight:600}
+h1{margin:0;font-size:22px;letter-spacing:.08em}h2{margin:4px 0 8px;font-size:20px}
+.sub{color:var(--mut);font-size:13px}
+.grid{display:grid;gap:14px;grid-template-columns:1.2fr 1fr}
+@media(max-width:820px){.grid{grid-template-columns:1fr}}
+.pill{display:inline-block;padding:2px 10px;border-radius:99px;border:1px solid;font-size:12px}
+.ok{color:var(--ok);border-color:var(--ok)}.wr{color:var(--warn);border-color:var(--warn)}.cr{color:var(--crit);border-color:var(--crit)}.in{color:var(--info);border-color:var(--info)}.mu{color:var(--mut);border-color:var(--line)}
+.tl{list-style:none;margin:0;padding:0}
+.tl li{display:flex;gap:10px;align-items:center;padding:7px 10px;border-left:3px solid var(--line);color:var(--mut);font-size:14px}
+.tl li.done{border-color:var(--ok);color:var(--tx)}.tl li.cur{border-color:var(--acc);color:var(--acc);background:var(--panel2)}
+.cmds{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:8px}
+.log{max-height:300px;overflow:auto;font-size:13px}
+.log div{padding:6px 0;border-bottom:1px solid var(--line)}
+.log b{color:var(--acc)}
+table{width:100%;border-collapse:collapse;font-size:14px}th,td{text-align:left;padding:7px 6px;border-bottom:1px solid var(--line)}th{color:var(--mut);font-size:11px;letter-spacing:.12em}
+.stats{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+.data{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px}
+.data div{border:1px solid var(--line);background:var(--panel2);padding:10px;border-radius:6px}
+.data small{display:block;color:var(--mut);font-size:11px;letter-spacing:.1em}.data b{font-size:22px}
+.steps{display:flex;gap:4px;flex-wrap:wrap;margin-top:12px}
+.steps span{flex:1;min-width:70px;text-align:center;padding:6px 2px;font-size:11px;border-bottom:3px solid var(--line);color:var(--mut);letter-spacing:.1em}
+.steps span.done{border-color:var(--ok);color:var(--tx)}.steps span.cur{border-color:var(--acc);color:var(--acc)}
+label{display:block;margin:12px 0 4px;font-size:12px;color:var(--mut);letter-spacing:.1em}
+input,select,textarea{width:100%;background:var(--bg);color:var(--tx);border:1px solid var(--line);border-radius:6px;padding:9px;font:inherit}
+textarea{min-height:90px;resize:vertical}
+input:focus,select:focus,textarea:focus{outline:1px solid var(--acc)}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:10px}@media(max-width:560px){.two{grid-template-columns:1fr}}
+.tx{border-left:4px solid var(--info)}.tx.wr{border-left-color:var(--warn)}.tx.ul{border-left-color:var(--ok)}.tx.fin{border-left-color:var(--acc)}
+.locked{border:1px dashed var(--mut);text-align:center;padding:26px 14px}
+.alert{border:1px solid var(--crit);border-left:6px solid var(--crit);background:#1a1214;animation:in .5s ease-out,pulse 2.4s ease-in-out infinite}
+.alert .big{font-size:26px;color:var(--crit);letter-spacing:.06em;margin:6px 0}
+.cmp{display:flex;gap:12px;flex-wrap:wrap;margin:12px 0}.cmp div{flex:1;min-width:140px;border:1px solid var(--line);padding:10px;border-radius:6px}
+@keyframes in{from{opacity:0;transform:translateY(-14px)}to{opacity:1;transform:none}}
+@keyframes pulse{50%{border-color:#7a3531}}
+.card{animation:in .35s ease-out}
+.file{border:1px dashed var(--line);padding:14px;text-align:center;color:var(--mut);border-radius:6px;cursor:pointer}
+.timer{font-size:28px;color:var(--acc)}
+.hidden{display:none}
+
+:root{--bg:#080b08;--panel:#0f140e;--panel2:#141b12;--line:#2b3626;--tx:#e8ebe0;--mut:#8a9680;--ok:#8fc45a;--warn:#e3a02b;--crit:#e5483f;--info:#9bb0a0;--acc:#b5cc7e}
+body:before{background:rgba(8,11,8,.9)}
+body:after{content:"";position:fixed;inset:0;pointer-events:none;z-index:5;background:repeating-linear-gradient(0deg,rgba(0,0,0,.16) 0 1px,transparent 1px 3px)}
+body.crit:before{background:radial-gradient(transparent 50%,rgba(229,72,63,.28)),rgba(8,11,8,.9);animation:vig 2.2s ease-in-out infinite}
+@keyframes vig{50%{opacity:.7}}@keyframes blink{50%{opacity:.25}}@keyframes gm{to{transform:translate(44px,44px)}}
+@keyframes shake{20%{transform:translateX(-6px)}40%{transform:translateX(6px)}60%{transform:translateX(-3px)}80%{transform:translateX(3px)}}
+.bar,.card,button,input,select,textarea,.data div{border-radius:2px}
+.card{position:relative;padding-top:20px}
+.tag{position:absolute;top:-8px;left:12px;background:var(--bg);padding:0 8px;font-size:10px;color:var(--mut);letter-spacing:.16em;font-family:ui-monospace,Menlo,Consolas,monospace}
+button{text-transform:uppercase;font-weight:700;font-size:13px}
+.cmd{padding:16px;text-align:left}.cmd.warn{border-color:var(--warn);color:var(--warn)}.cmd.dng{border-color:var(--crit);background:#1d0f0e;color:var(--crit)}
+.pri.big{padding:18px 40px;font-size:18px;letter-spacing:.2em}
+.dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--ok);animation:blink 1.8s infinite}.dot.rx{background:var(--crit);animation-duration:.9s}
+.data div{border-left:3px solid var(--acc);border-top:0;border-right:0;border-bottom:1px solid var(--line)}
+.land{min-height:calc(100vh - 28px);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;position:relative;overflow:hidden}
+.land>*:not(.g):not(.cont):not(.co){position:relative;z-index:1}
+.land .g{position:absolute;inset:-44px;background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);background-size:44px 44px;opacity:.35;animation:gm 16s linear infinite}
+.cont{position:absolute;inset:0;width:100%;height:100%;color:#3b4d33;opacity:.6}.co{position:absolute;font-size:11px;color:var(--mut)}
+.ttl{font-size:clamp(38px,11vw,104px);letter-spacing:.2em;margin:6px 0;font-family:ui-monospace,Menlo,Consolas,monospace;animation:in 1s ease-out}
+.cols{display:grid;grid-template-columns:300px minmax(0,1fr);gap:14px;margin-top:14px}.cols aside,.cols main{min-width:0}
+@media(max-width:820px){.cols{grid-template-columns:1fr}}
+.tl li.alt{border-color:var(--crit);color:var(--crit)}.tl li b{width:22px}.tl li:not(.done):not(.cur):not(.alt){opacity:.55}
+.obj{border:1px solid var(--acc);padding:12px;margin:10px 0;background:var(--panel2)}
+.shk{animation:shake .5s 1}.meta{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:4px 14px;font-size:12px;color:var(--mut);margin:10px 0}.meta b{color:var(--tx)}
+.foot{margin:18px 0 6px;text-align:center;color:var(--mut);font-size:11px;letter-spacing:.14em}
+.timer.wr{color:var(--warn)}.timer.cr{color:var(--crit)}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important}}
+</style></head><body><div class="wrap" id="app"></div>
+<script>
+/* ---------- STORE (swap this layer for Supabase DB + Realtime later) ---------- */
+const KEY="mathverse.mission.v1";
+const fresh=()=>({warned:false,started:false,stage:-1,dataReleased:false,entered:false,saved:false,alertActive:false,ack:false,adaptationUnlocked:false,finalOpen:false,missionClosed:false,submitted:false,timer:{running:false,endAt:0,remaining:45*60},log:[],draft:{}});
+let bc=null;try{bc=new BroadcastChannel("mathverse")}catch(e){}
+let S=load(),listeners=[];
+function load(){try{return JSON.parse(localStorage.getItem(KEY))||fresh()}catch(e){return fresh()}}
+function persist(){try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}bc&&bc.postMessage("sync")}
+function set(p,silent){Object.assign(S,p);persist();if(!silent)listeners.forEach(f=>f())}
+function sync(){S=load();listeners.forEach(f=>f())}
+bc&&(bc.onmessage=sync);try{addEventListener("storage",e=>{if(e.key===KEY)sync()})}catch(e){}
+const now=()=>new Date().toTimeString().slice(0,8);
+function logTx(who,type,msg){S.log=[{t:now(),who,type,msg},...S.log]}
+const stage=n=>Math.max(S.stage,n);
+/* ---------- ORGANIZER ACTIONS ---------- */
+const act={
+ warn(){logTx("COMMAND","⚠","WARNING issued to all teams.");set({warned:true})},
+ start(){logTx("SYSTEM","","Mission initialized.");logTx("COMMAND","","Mission briefing released.");set({started:true,stage:stage(0)})},
+ data(){if(!S.started){logTx("SYSTEM","","Mission initialized.");logTx("COMMAND","","Mission briefing released.")}logTx("COMMAND","📡","DATA DROP 01 released.");set({started:true,dataReleased:true,stage:stage(1)})},
+ alert(){logTx("COMMAND","🚨","CRITICAL ALERT triggered.");set({alertActive:true,alertT:now(),stage:stage(4)});setTimeout(()=>{if(!S.adaptationUnlocked)act.unlock(true)},3000)},
+ unlock(auto){logTx(auto?"SYSTEM":"COMMAND","🔓","Adaptation phase unlocked.");set({adaptationUnlocked:true,stage:stage(5)})},
+ final(){logTx("COMMAND","🏁","Final submission opened.");set({finalOpen:true,stage:stage(6)})},
+ close(){logTx("COMMAND","🔴","Mission closed.");set({missionClosed:true,stage:7})},
+ reset(){S=fresh();persist();listeners.forEach(f=>f())},
+ tStart(){const r=S.timer.remaining;set({timer:{running:true,endAt:Date.now()+r*1000,remaining:r}})},
+ tPause(){set({timer:{running:false,endAt:0,remaining:remaining()}})},
+ tAdd(){const r=remaining()+300;set({timer:{running:S.timer.running,endAt:S.timer.running?Date.now()+r*1000:0,remaining:r}});logTx("SYSTEM","⏱️","Time extended by 05:00.")}
+};
+function remaining(){return S.timer.running?Math.max(0,Math.round((S.timer.endAt-Date.now())/1000)):S.timer.remaining}
+const fmt=s=>[s/3600|0,(s%3600)/60|0,s%60].map(n=>String(n).padStart(2,"0")).join(":");
+/* ---------- UI HELPERS ---------- */
+const esc=s=>String(s||"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+let view="organizer";try{view=sessionStorage.getItem("mv.view")||"organizer"}catch(e){}
+const STAGES=["MISSION BRIEFING","DATA DROP 01","INITIAL SOLUTION","CHALLENGE LOCKED","CRITICAL ALERT","ADAPTATION","FINAL SUBMISSION","MISSION COMPLETE"];
+function curStage(){if(S.submitted||S.missionClosed)return 7;if(S.finalOpen)return 6;if(S.adaptationUnlocked&&S.ack)return 5;if(S.alertActive)return 4;if(S.saved)return 3;if(S.dataReleased&&S.entered)return 2;if(S.dataReleased)return 1;if(S.started)return 0;return -1}
+const status=()=>S.missionClosed||S.submitted?["● CLOSED","cr"]:S.alertActive&&!S.ack?["● CRITICAL","cr"]:S.started?["● ACTIVE","ok"]:["○ STANDBY","mu"];
+function Timeline(){const c=curStage();return`<div class="card"><h3 class="mono">MISSION STAGE</h3><ul class="tl">${STAGES.map((s,i)=>`<li class="${i<c?"done":i===c?"cur":""}"><span>${i<c?"✓":i===c?"▶":"○"}</span>${String(i+1).padStart(2,"0")} — ${s}</li>`).join("")}</ul></div>`}
+function TeamMonitor(){const me=S.submitted?["✓ SUBMITTED","FINAL"]:S.adaptationUnlocked&&S.ack?["⚠ ADAPTING","ADAPTATION"]:S.started?["● ACTIVE","INITIAL SOLUTION"]:["○ STANDBY","—"];
+const rows=[["MV-001",...me],["MV-002","● ACTIVE","INITIAL SOLUTION"],["MV-003","⚠ ADAPTING","ADAPTATION"],["MV-004","✓ SUBMITTED","FINAL"],["MV-005","● ACTIVE","INITIAL SOLUTION"]];
+const n=k=>rows.filter(r=>r[1].includes(k)).length;
+return`<div class="card"><h3 class="mono">TEAM MONITOR</h3><table><tr><th>TEAM</th><th>STATUS</th><th>PROGRESS</th></tr>${rows.map(r=>`<tr><td class="mono">${r[0]}</td><td>${r[1]}</td><td>${r[2]}</td></tr>`).join("")}</table>
+<div class="stats mono"><span class="pill in">TOTAL OPERATIVES ${rows.length}</span><span class="pill ok">Active ${n("ACTIVE")}</span><span class="pill wr">Adapting ${n("ADAPTING")}</span><span class="pill in">COMPLETED ${n("SUBMITTED")}</span></div></div>`}
+function LogPanel(){return`<div class="card"><h3 class="mono">TRANSMISSION LOG</h3><div class="log mono">${S.log.length?S.log.map(l=>`<div><span class="sub">[${l.t}]</span><br><b>${l.who}</b> ${l.type} ${esc(l.msg).toUpperCase()}</div>`).join(""):'<span class="sub">No transmissions yet.</span>'}</div></div>`}
+/* ---------- STUDENT COMPONENTS ---------- */
+function Standby(){return`<div class="card locked"><h2>⏳ AWAITING COMMAND</h2><p class="sub">Mission has not started. Stand by for transmission.</p></div>`}
+const fld=(k,l,ta)=>`<label>${l}</label>${ta?`<textarea data-f="${k}">${esc(S.draft[k])}</textarea>`:`<input data-f="${k}" value="${esc(S.draft[k])}">`}`;
+const upl=k=>`<label>SUPPORTING WORKING</label><div class="file" data-file="${k}">${S.draft[k]?"📎 "+esc(S.draft[k]):"📎 Click to attach working (photo / PDF) — prototype: filename only"}</div>`;
+function InitialSolution(){const dis=S.saved;return`<div class="card"><h3 class="mono">MISSION PHASE 01</h3><h2>PLAN YOUR RESPONSE</h2><div class="two">${fld("tid","TEAM ID")}${fld("tname","TEAM NAME")}</div>
+<label>ALLOCATION / DECISION STRATEGY</label><select data-f="strategy">${["","Equal split","Based on availability","Based on distance","Based on workload","Other"].map(o=>`<option ${S.draft.strategy===o?"selected":""}>${o}</option>`).join("")}</select>
+${fld("plan","INITIAL EVACUATION PLAN",1)}${fld("calc","CALCULATIONS",1)}${fld("approach","MATHEMATICAL APPROACH",1)}${upl("file1")}
+<p style="margin-top:14px"><button class="pri" data-do="save">SAVE PROGRESS</button> <span class="pill wr">🔒 INITIAL RESPONSE SAVED LOCALLY</span></p><p class="sub">Your mission has not been submitted. The team can continue working.</p></div>`}
+function Adaptation(){return`<div class="card"><h2>ADAPT YOUR SOLUTION</h2>${fld("uplan","UPDATED EVACUATION PLAN",1)}${fld("ucalc","UPDATED CALCULATIONS",1)}${fld("changed","WHAT CHANGED?",1)}${fld("adapted","HOW WAS YOUR MATHEMATICAL SOLUTION ADAPTED?",1)}${upl("file2")}<p><span class="pill wr">⚠ ADAPTATION IN PROGRESS</span></p></div>`}
+function FinalLocked(){return`<div class="card locked"><h2>🔒 FINAL SUBMISSION LOCKED</h2><p class="sub">Awaiting Command Authorization.</p></div>`}
+function FinalSubmission(){return`<div class="card tx fin"><span class="pill in mono">🏁 FINAL TRANSMISSION</span><h3 class="mono">FINAL MISSION PHASE</h3><h2 class="mono">MISSION REVIEW REQUIRED</h2><div class="mono">✓ INITIAL PLAN<br>✓ UPDATED INTELLIGENCE<br>✓ ADAPTED PLAN<br>✓ CALCULATIONS<br>✓ MATHEMATICAL JUSTIFICATION</div>
+${fld("final","FINAL SOLUTION",1)}${fld("just","MATHEMATICAL JUSTIFICATION",1)}${fld("aexp","ADAPTATION EXPLANATION",1)}${fld("fwork","FINAL WORKING",1)}
+<div class="card" style="border-color:var(--crit)"><b>⚠ FINAL TRANSMISSION — ONE OFFICIAL SUBMISSION</b><p class="sub">“Once submitted, your mission response will be locked.”</p><button class="pri" data-do="submit">[ TRANSMIT FINAL SOLUTION ]</button></div></div>`}
+
+/* ---------- TACTICAL UI (v2) ---------- */
+let landed=false,sound=false,intel=false,wasCrit=false;const typed={};let AC;
+function beep(f=660,d=.12,n=1){if(!sound)return;try{AC=AC||new(window.AudioContext||window.webkitAudioContext)();for(let i=0;i<n;i++){const o=AC.createOscillator(),g=AC.createGain(),t=AC.currentTime+i*.3;o.frequency.value=f;g.gain.value=.05;o.connect(g);g.connect(AC.destination);o.start(t);o.stop(t+d)}}catch(e){}}
+const tdisp=()=>"T− "+fmt(remaining()),tcls=()=>remaining()<=300?"cr":remaining()<=600?"wr":"",tlab=()=>remaining()<=300?"CRITICAL":remaining()<=600?"WARNING":"MISSION TIME";
+const Card=(t,h)=>`<div class="card"><span class="tag">${t}</span>${h}</div>`;
+function updTrk(){document.querySelectorAll("[data-k]").forEach(e=>{const v=!!(S.draft[e.dataset.k]||"").trim();e.classList.toggle("ok",v);e.classList.toggle("mu",!v)})}
+function runType(){document.querySelectorAll("[data-type]").forEach(el=>{const t=el.dataset.type;if(typed[t]||matchMedia("(prefers-reduced-motion:reduce)").matches){typed[t]=1;el.textContent=t;return}typed[t]=1;let i=0;const h=setInterval(()=>{el.textContent=t.slice(0,++i);if(i>=t.length)clearInterval(h)},28)})}
+function Header(role){const[st,c]=status();return`<div class="bar"><div><div class="mono sub" style="font-size:11px">MVS // OPERATIONS CONTROL · MISSION INTELLIGENCE SYSTEM</div><h1 class="mono">MATHVERSE${role==="organizer"?" COMMAND CENTER":""}</h1><div class="sub mono" style="font-size:12px">MATHEMATICAL OPERATIONS DIVISION · MISSION CONTROL</div><div class="mono" style="color:var(--acc);font-size:12px">SOLVE. ADAPT. INNOVATE.</div></div><div class="mono sub" style="text-align:right;font-size:12px">OPS // 01 · MISSION 01<br>SURVIVE THE STORM<br>SYSTEM <span class="dot"></span> ONLINE · STATUS <span class="pill ${c}">${st}</span></div></div>`}
+function Switcher(){return`<div class="bar" style="margin-bottom:14px"><span class="demo mono">DEMO MODE · PROTOTYPE</span><div class="tabs"><button class="${view==="organizer"?"on":""}" data-view="organizer">ORGANIZER COMMAND CENTER</button><button class="${view==="student"?"on":""}" data-view="student">STUDENT MISSION PORTAL</button><button data-do="sound">🔊 SOUND: ${sound?"ON":"OFF"}</button><button class="dng" data-do="reset">RESET DEMO</button></div></div>`}
+const Foot=()=>`<div class="foot mono">ENCRYPTED MISSION CHANNEL // CONNECTED · DATA CHANNEL // 04 · SECURITY LEVEL // OPERATIONAL</div>`;
+function Landing(){return`<div class="land"><div class="g"></div><svg class="cont" viewBox="0 0 800 400" preserveAspectRatio="none"><g fill="none" stroke="currentColor"><path d="M0 300C120 240 200 330 320 270S520 200 640 260 760 300 800 280"/><path d="M0 340C140 290 220 370 340 320S540 250 660 310 780 340 800 330"/><path d="M0 250C100 190 220 280 330 220S540 150 650 210 760 250 800 230"/><circle cx="400" cy="200" r="120"/><circle cx="400" cy="200" r="60"/></g></svg>
+<div class="mono co" style="top:14px;left:14px">GRID 04<br>SECTOR 07</div><div class="mono co" style="top:14px;right:14px;text-align:right">OPERATIONAL ZONE<br>MVS // OPERATIONS CONTROL</div><div class="mono co" style="bottom:14px;left:14px">ENCRYPTED MISSION CHANNEL<br>CONNECTED</div><div class="mono co" style="bottom:14px;right:14px;text-align:right">t = d / v<br>DEMO MODE</div>
+<div class="mono sub">MATHEMATICAL OPERATIONS DIVISION</div><h1 class="ttl">MATHVERSE</h1><div class="mono" style="font-size:18px;letter-spacing:.4em">MISSION CONTROL</div><div class="mono sub" style="margin:6px">SOLVE. ADAPT. INNOVATE.</div>
+<div class="mono" style="margin-top:26px;color:var(--acc)">MISSION 01</div><h2 class="mono" style="font-size:28px;letter-spacing:.15em">SURVIVE THE STORM</h2><div class="mono"><span class="dot"></span> SYSTEM ONLINE</div>
+<div style="margin-top:26px;display:flex;gap:12px;flex-wrap:wrap;justify-content:center"><button class="pri big" data-do="land">[ ENTER MISSION ]</button><button data-do="intel">[ MISSION INTEL ]</button></div>
+${intel?`<div class="card" style="max-width:520px;text-align:left"><span class="tag">CLASSIFICATION: MISSION INTELLIGENCE</span><p>A mathematics problem-solving hackathon. Teams receive a real-world emergency, plan and calculate a solution, then <b>adapt</b> when the situation changes. One official submission at the end.</p><p class="mono sub">PLAN · CALCULATE · DECIDE · ADAPT · JUSTIFY</p></div>`:""}</div>`}
+function TacticalMap(){const dead=S.alertActive;return`<svg viewBox="0 0 400 230" style="width:100%;display:block;background:var(--bg);border:1px solid var(--line)"><defs><pattern id="gp" width="20" height="20" patternUnits="userSpaceOnUse"><path d="M20 0H0V20" fill="none" stroke="#243020" stroke-width=".6"/></pattern></defs><rect width="400" height="230" fill="url(#gp)"/><g fill="none" stroke="#2f3f2a"><path d="M0 190C80 150 120 200 200 170S320 120 400 150"/><path d="M0 212C90 182 140 226 210 196S330 150 400 178"/><ellipse cx="290" cy="60" rx="70" ry="34"/><ellipse cx="290" cy="60" rx="36" ry="16"/></g><path d="M50 170C110 110 230 150 335 55" fill="none" stroke="#b5cc7e" stroke-width="2" stroke-dasharray="6 3"/><path d="M50 170C130 200 250 130 335 55" fill="none" stroke="#e3a02b" stroke-width="1.5" stroke-dasharray="2 4"/><g font-family="monospace" font-size="9" fill="#b9c4ae"><circle cx="50" cy="170" r="6" fill="#e5483f"/><text x="30" y="192">EVAC POINT</text><rect x="328" y="48" width="14" height="14" fill="#8fc45a"/><text x="300" y="38">SHELTER A</text><text x="120" y="112">ROUTE 01</text><text x="150" y="208">ROUTE 02</text><text x="12" y="16">SECTOR 07 · GRID 04</text><text x="12" y="28" fill="#8a9680">d = 12 km · t = d / v</text><rect x="110" y="128" width="12" height="7" fill="#b5cc7e"/><rect x="200" y="134" width="12" height="7" fill="#b5cc7e"/><rect x="255" y="112" width="12" height="7" fill="${dead?"#e5483f":"#b5cc7e"}"/>${dead?'<text x="238" y="106" fill="#e5483f">BUS OFFLINE</text>':""}</g></svg>`}
+function CommandPanel(){return`<div class="card"><span class="tag">COMMAND CONSOLE</span><div class="cmds">
+<button class="cmd pri" data-do="start" ${S.started?"disabled":""}>▶ START MISSION</button><button class="cmd" data-do="data" ${S.dataReleased?"disabled":""}>📡 RELEASE INTELLIGENCE</button>
+<button class="cmd warn" data-do="warn" ${S.warned?"disabled":""}>⚠ ISSUE WARNING</button><button class="cmd dng" data-do="alert" ${S.alertActive?"disabled":""}>🚨 TRIGGER CRITICAL ALERT</button>
+<button class="cmd" data-do="unlock" ${S.adaptationUnlocked||!S.alertActive?"disabled":""}>🔓 UNLOCK ADAPTATION</button><button class="cmd" data-do="final" ${S.finalOpen||!S.alertActive?"disabled":""}>🏁 OPEN FINAL PHASE</button>
+<button class="cmd dng" data-do="close" ${S.missionClosed?"disabled":""}>🔴 CLOSE MISSION</button></div>
+<div class="cmds" style="margin-top:14px;align-items:center"><span class="mono sub" data-tlab>${tlab()}</span><b data-timer class="timer ${tcls()}">${tdisp()}</b><button data-do="tStart">▶ START</button><button data-do="tPause">⏸ PAUSE</button><button data-do="tAdd">+5 MIN</button></div></div>`}
+function Organizer(){return Header("organizer")+`<div class="grid"><div>${CommandPanel()}${LogPanel()}</div><div>${Timeline()}${TeamMonitor()}${Card("TACTICAL OVERVIEW",TacticalMap())}</div></div><p class="sub">Tip: open a second tab in the same browser, switch to Student Portal. Organizer actions sync live.</p>`}
+function Phases(){const d=S.submitted||S.missionClosed,L=["🔒 LOCKED",""],C=["✓ COMPLETE","done"],A=["● ACTIVE","cur"];
+const P=[["BRIEFING",S.entered?C:A],["INTELLIGENCE",S.dataReleased?["✓ AVAILABLE","done"]:L],["INITIAL PLAN",S.ack||d?C:S.dataReleased?A:L],["CHALLENGE",S.alertActive?(S.ack?["✓ RECEIVED","done"]:["🚨 INCOMING","alt"]):["🔒 CLASSIFIED",""]],["ADAPTATION",S.finalOpen||d?C:S.adaptationUnlocked&&S.ack?A:L],["FINALIZE",d?C:S.finalOpen?A:L],["MISSION COMPLETE",d?C:L]];
+return Card("MISSION PHASES",`<ul class="tl">${P.map((p,i)=>`<li class="${p[1][1]}"><b class="mono">0${i+1}</b><div>${p[0]}<br><small class="mono">${p[1][0]}</small></div></li>`).join("")}</ul>`)}
+function Profile(){const ph=S.finalOpen?"FINAL":S.ack?"PHASE 02":"PHASE 01";return Card("TEAM AUTHENTICATION",`<div class="mono">TEAM ID: <b>MV-001</b><br>TEAM NAME: <b>DEMO TEAM</b><br>STATUS: <span class="dot"></span> OPERATIVE</div><div class="data" style="margin-top:10px"><div><small>TEAM STATUS</small><b>ACTIVE</b></div><div><small>CURRENT PHASE</small><b>${ph}</b></div></div><div class="mono" style="margin-top:12px"><small class="sub" data-tlab>${tlab()}</small><br><b data-timer class="timer ${tcls()}">${tdisp()}</b></div>`)}
+const StudentTop=()=>Header("student");
+function Briefing(){return`<div class="card tx"><span class="tag">CLASSIFICATION: MISSION INTELLIGENCE</span><span class="pill in mono"><span class="dot rx" style="background:var(--info)"></span> INCOMING TRANSMISSION</span><h3 class="mono" style="margin-top:10px">MISSION BRIEFING</h3><h2 class="mono">MISSION 01 · SURVIVE THE STORM</h2><p><b>SITUATION</b><br>A severe storm has affected the region. <b>23 civilians</b> require evacuation.</p><p>Your team has been assigned to develop an emergency evacuation plan. Use mathematical reasoning to determine the best possible strategy. No method is prescribed.</p><div class="obj mono"><small>[ OBJECTIVE 01 ]</small><br>Develop a mathematically justified evacuation plan.</div><p class="mono">PLAN · CALCULATE · DECIDE · ADAPT</p><p style="color:var(--warn)">⚠ The situation may change during the mission.</p><button class="pri" data-do="enter">[ ENTER MISSION ]</button></div>`}
+function DataDrop(){const d=[["PERSONNEL","23"],["SHELTER CAPACITY","40"],["DISTANCE","12 KM"],["BUSES AVAILABLE","3"],["BUS CAPACITY","20 PAX"],["AVG BUS SPEED","30 KM/H"],["AVAILABLE TIME","45 MIN"]];
+return`<div class="card tx"><span class="tag">TACTICAL INTELLIGENCE</span><span class="pill in mono">📡 DATA DROP // 01</span><div class="data" style="margin-top:12px">${d.map(x=>`<div><small>${x[0]}</small><b>${x[1]}</b></div>`).join("")}</div><div class="meta mono"><span>INTEL STATUS <b>VERIFIED</b></span><span>SOURCE <b>MISSION CONTROL</b></span></div>${Card("TACTICAL OVERVIEW",TacticalMap())}<p class="sub">No mathematical method has been assigned. Your team decides which concepts apply.</p></div>`}
+function Locked(){return`<div class="card locked"><span class="tag">RESTRICTED</span><h2 class="mono">🔒 CLASSIFIED INTELLIGENCE</h2><p class="mono">NEXT TRANSMISSION<br>STATUS: NOT AUTHORIZED · ACCESS: LOCKED</p><p><b>DO NOT SUBMIT YOUR MISSION.</b> Save progress and remain ready.</p><span class="pill wr mono">AWAITING COMMAND AUTHORIZATION</span></div>`}
+function CriticalAlert(){return`<div class="shk"><div class="card alert"><span class="tag">COMMAND CHANNEL // 01</span><span class="pill cr mono"><span class="dot rx"></span> 🚨 PRIORITY TRANSMISSION · RECEIVING</span>
+<div class="meta mono"><span>SOURCE <b>MATHVERSE COMMAND</b></span><span>CHANNEL <b>OPS-01</b></span><span>PRIORITY <b style="color:var(--crit)">CRITICAL</b></span><span>RECEIVED <b>${esc(S.alertT||now())}</b></span></div>
+<div class="big mono">⚠ SITUATION UPDATE</div><p class="mono sub">NEW INTELLIGENCE RECEIVED</p><p class="mono" style="font-size:22px;min-height:2.6em" data-type="ONE EVACUATION BUS HAS BECOME UNAVAILABLE."></p>
+<div class="cmp mono"><div><small class="sub">AVAILABLE BUSES</small><br><b style="color:var(--crit)">02</b></div><div><small class="sub">PREVIOUS</small><br><b>03</b></div><div><small class="sub">DEADLINE</small><br><b>UNCHANGED</b></div></div>
+<p class="mono" style="color:var(--crit)">⚠ CURRENT PLAN COMPROMISED</p><div class="obj mono"><small>NEW OBJECTIVE</small><br>ADAPT YOUR SOLUTION</div><button class="pri" data-do="ack">[ ACKNOWLEDGE ]</button></div></div>`}
+function Objective(){const t=(k,l)=>`<span class="pill ${(S.draft[k]||"").trim()?"ok":"mu"}" data-k="${k}">${l}</span> `;
+return`<div class="card tx wr"><span class="tag">MISSION OBJECTIVE UPDATED</span><h3 class="mono">PRIMARY OBJECTIVE</h3><h2 class="mono">ADAPT YOUR EVACUATION PLAN</h2><p class="mono sub">SECONDARY OBJECTIVES</p><p class="mono">${t("ucalc","01 // RECALCULATE")}${t("changed","02 // REASSESS")}${t("uplan","03 // ADAPT")}${t("adapted","04 // JUSTIFY")}</p><p><span class="pill ${S.adaptationUnlocked?"ok":"wr"}">${S.adaptationUnlocked?"🔓 ADAPTATION PHASE UNLOCKED":"🔒 ADAPTATION LOCKED — AWAITING COMMAND"}</span></p></div>`}
+const Warn=()=>`<div class="card tx wr"><span class="tag">COMMAND ADVISORY</span><span class="pill wr mono">⚠ WARNING</span><p>Stay alert. Conditions may change without notice. Keep your working saved and remain ready to adapt.</p></div>`;
+function MissionComplete(){const ok=S.submitted;return`<div class="card tx fin" style="text-align:center;padding:30px 14px"><span class="tag">MATHVERSE COMMAND</span><h2 class="mono" style="font-size:30px">${ok?"MISSION COMPLETE":"MISSION CLOSED"}</h2><p class="mono">SURVIVE THE STORM · TEAM MV-001</p><p class="mono" style="line-height:2">${ok?"✓ OBJECTIVE COMPLETED<br>✓ FINAL SOLUTION RECEIVED<br>":"● COMMAND CLOSED THE MISSION<br>"}✓ MISSION LOG CLOSED<br><span class="pill cr">● SUBMISSION LOCKED</span></p><p class="mono sub">TRANSMISSION COMPLETE</p><button data-view="organizer">[ RETURN TO COMMAND ]</button></div>`}
+function Student(){let b="";
+ if(S.submitted||S.missionClosed)b=MissionComplete();
+ else if(!S.started)b=Standby();
+ else if(!S.entered)b=Briefing();
+ else{
+  b=S.dataReleased?DataDrop():`<div class="card locked"><span class="tag">DATA CHANNEL // 04</span><h2 class="mono">AWAITING TRANSMISSION</h2><p class="sub">Command will release intelligence shortly.</p></div>`;
+  if(S.dataReleased){b+=InitialSolution();
+   if(S.alertActive&&!S.ack)b=CriticalAlert()+b;
+   else if(S.ack)b=Objective()+(S.adaptationUnlocked?Adaptation():"")+(S.finalOpen?FinalSubmission():FinalLocked())+b;
+   else if(S.saved)b=Locked()+b;
+   if(S.warned&&!S.alertActive)b=Warn()+b}}
+ return StudentTop()+`<div class="cols"><aside>${Profile()}${Phases()}</aside><main>${b}</main></div>`}
+function render(){const a=document.getElementById("app"),y=scrollY,crit=landed&&S.alertActive&&!S.ack&&view==="student";document.body.classList.toggle("crit",crit);
+a.innerHTML=landed?Switcher()+(view==="organizer"?Organizer():Student())+Foot():Landing();scrollTo(0,y);runType();if(crit&&!wasCrit)beep(440,.25,2);wasCrit=crit}
+/* ---------- RENDER + EVENTS ---------- */
+listeners.push(render);render();
+setInterval(()=>{document.querySelectorAll("[data-timer]").forEach(e=>{e.textContent=tdisp();e.className="timer "+tcls()});document.querySelectorAll("[data-tlab]").forEach(e=>e.textContent=tlab())},1000);
+document.addEventListener("click",e=>{
+ const v=e.target.closest("[data-view]");if(v){view=v.dataset.view;try{sessionStorage.setItem("mv.view",view)}catch(e){}render();return}
+ const f=e.target.closest("[data-file]");if(f){const n=prompt("Attach file name (prototype):","working-sheet.pdf");if(n){S.draft[f.dataset.file]=n;set({draft:S.draft})}return}
+ const d=e.target.closest("[data-do]");if(!d)return;const k=d.dataset.do;beep(880,.05);
+ if(k==="land"){landed=true;beep(520,.1,3);return render()}
+ if(k==="intel"){intel=!intel;return render()}
+ if(k==="sound"){sound=!sound;beep(660,.1);return render()}
+ if(act[k])return act[k]();
+ if(k==="enter")set({entered:true,stage:stage(S.dataReleased?1:0)});
+ if(k==="save"){logTx("SYSTEM","","Challenge intelligence locked.");set({saved:true,stage:stage(3)})}
+ if(k==="ack"){logTx("SYSTEM","","MV-001 acknowledged transmission.");set({ack:true})}
+ if(k==="submit"){if(S.submitted)return;logTx("SYSTEM","🏁","MV-001 final submission received.");set({submitted:true,stage:7})}
+});
+document.addEventListener("input",e=>{const k=e.target.dataset.f;if(!k)return;S.draft[k]=e.target.value;set({draft:S.draft},true);updTrk()});
+</script></body></html>

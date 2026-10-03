@@ -1,0 +1,71 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid slice">
+  <defs>
+    <linearGradient id="islandSea" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0%" stop-color="#071c2d"/>
+      <stop offset="55%" stop-color="#0a2b3a"/>
+      <stop offset="100%" stop-color="#061016"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1600" height="900" fill="url(#islandSea)"/>
+
+  <g opacity="0.18" stroke="#d9f0ff" stroke-width="2" fill="none">
+    <path d="M0 120 L1600 120"/>
+    <path d="M0 240 L1600 240"/>
+    <path d="M0 360 L1600 360"/>
+    <path d="M0 480 L1600 480"/>
+    <path d="M0 600 L1600 600"/>
+    <path d="M0 720 L1600 720"/>
+    <path d="M200 0 L200 900"/>
+    <path d="M420 0 L420 900"/>
+    <path d="M640 0 L640 900"/>
+    <path d="M860 0 L860 900"/>
+    <path d="M1080 0 L1080 900"/>
+    <path d="M1300 0 L1300 900"/>
+  </g>
+
+  <g opacity="0.85">
+    <path d="M0 580 L1600 580 L1600 900 L0 900 Z" fill="#0a2130"/>
+    <path d="M0 640 L1600 640" stroke="#9be5ff" stroke-width="2" opacity="0.7"/>
+  </g>
+
+  <g opacity="0.9">
+    <path d="M350 430 L720 250 L1100 430 L980 620 L470 620 Z" fill="#2f5d48"/>
+    <path d="M470 620 L980 620 L1120 740 L350 740 Z" fill="#1d3d32"/>
+    <path d="M560 470 L680 430 L760 500 L690 600 L560 600 Z" fill="#3d765a"/>
+    <path d="M860 500 L980 450 L1040 530 L960 620 L850 620 Z" fill="#46795c"/>
+    <path d="M610 610 L820 610 L760 740 L660 740 Z" fill="#3d8360"/>
+  </g>
+
+  <g opacity="0.8" fill="#dff6ff">
+    <path d="M180 760 L250 700 L260 740 L220 780 Z"/>
+    <path d="M1230 740 L1290 680 L1315 720 L1260 780 Z"/>
+    <path d="M1360 760 L1450 720 L1465 760 L1390 815 Z"/>
+  </g>
+
+  <g opacity="0.75" stroke="#d6efff" stroke-width="2" fill="none">
+    <path d="M220 670 L360 620 L500 670"/>
+    <path d="M1060 660 L1210 620 L1370 660"/>
+    <path d="M660 720 L760 640 L870 720"/>
+  </g>
+
+  <g opacity="0.8">
+    <path d="M370 680 L450 640 L520 680 L500 720 L390 720 Z" fill="#1d3138"/>
+    <path d="M1030 690 L1090 650 L1170 690 L1140 730 L1050 730 Z" fill="#1d3138"/>
+    <path d="M590 690 L630 660 L685 690 L664 725 L610 725 Z" fill="#183a44"/>
+  </g>
+
+  <g opacity="0.8" stroke="#8fe8ff" stroke-width="2" fill="none">
+    <path d="M220 420 L520 300 L870 440"/>
+    <path d="M760 440 L1180 300 L1435 430"/>
+    <path d="M0 830 L1600 830"/>
+  </g>
+
+  <g opacity="0.8" fill="#7fe1ff">
+    <circle cx="300" cy="190" r="4"/>
+    <circle cx="460" cy="150" r="4"/>
+    <circle cx="760" cy="100" r="4"/>
+    <circle cx="1080" cy="180" r="4"/>
+    <circle cx="1320" cy="140" r="4"/>
+  </g>
+</svg>

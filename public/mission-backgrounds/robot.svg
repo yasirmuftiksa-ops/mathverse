@@ -1,0 +1,76 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid slice">
+  <defs>
+    <linearGradient id="robotBg" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0%" stop-color="#091018"/>
+      <stop offset="45%" stop-color="#0d1a25"/>
+      <stop offset="100%" stop-color="#070b12"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1600" height="900" fill="url(#robotBg)"/>
+
+  <g opacity="0.14" stroke="#dfefff" stroke-width="2" fill="none">
+    <path d="M0 120 L1600 120"/>
+    <path d="M0 240 L1600 240"/>
+    <path d="M0 360 L1600 360"/>
+    <path d="M0 480 L1600 480"/>
+    <path d="M0 600 L1600 600"/>
+    <path d="M0 720 L1600 720"/>
+    <path d="M200 0 L200 900"/>
+    <path d="M420 0 L420 900"/>
+    <path d="M640 0 L640 900"/>
+    <path d="M860 0 L860 900"/>
+    <path d="M1080 0 L1080 900"/>
+    <path d="M1300 0 L1300 900"/>
+  </g>
+
+  <g opacity="0.9">
+    <path d="M0 640 L1600 640" stroke="#9dd9ff" stroke-width="2"/>
+    <path d="M0 700 L1600 700" stroke="#9dd9ff" stroke-width="2" opacity="0.7"/>
+    <path d="M0 760 L1600 760" stroke="#9dd9ff" stroke-width="2" opacity="0.5"/>
+  </g>
+
+  <g opacity="0.9" fill="#d5f1ff">
+    <circle cx="200" cy="160" r="4"/>
+    <circle cx="420" cy="120" r="4"/>
+    <circle cx="760" cy="180" r="4"/>
+    <circle cx="1040" cy="140" r="4"/>
+    <circle cx="1370" cy="170" r="4"/>
+  </g>
+
+  <g opacity="0.9">
+    <g transform="translate(240 390)">
+      <rect x="0" y="120" width="260" height="90" rx="18" fill="#212e39"/>
+      <rect x="35" y="95" width="190" height="40" rx="12" fill="#2d3d48"/>
+      <rect x="70" y="20" width="96" height="92" rx="12" fill="#2a3945"/>
+      <path d="M88 20 L142 20 L160 70 L64 70 Z" fill="#4f87bf" opacity="0.7"/>
+      <path d="M0 200 L80 200 L80 260 L0 260 Z" fill="#1b2730"/>
+      <path d="M180 200 L260 200 L260 260 L180 260 Z" fill="#1b2730"/>
+      <path d="M100 210 L50 260" stroke="#ccdff7" stroke-width="6"/>
+      <path d="M160 210 L210 260" stroke="#ccdff7" stroke-width="6"/>
+    </g>
+
+    <g transform="translate(860 360)">
+      <rect x="0" y="120" width="280" height="90" rx="20" fill="#202d38"/>
+      <path d="M40 130 L40 30 L190 30 L190 130" fill="none" stroke="#d7e8ff" stroke-width="5"/>
+      <circle cx="110" cy="76" r="26" fill="#7ec7ff" opacity="0.65"/>
+      <path d="M100 120 L100 220 M180 120 L180 220" stroke="#d7e8ff" stroke-width="6"/>
+      <path d="M0 220 L80 220 L80 280 L0 280 Z" fill="#1b2730"/>
+      <path d="M200 220 L280 220 L280 280 L200 280 Z" fill="#1b2730"/>
+      <path d="M120 220 L120 280 M160 220 L160 280" stroke="#b9d4ef" stroke-width="4"/>
+    </g>
+  </g>
+
+  <g opacity="0.9">
+    <path d="M150 750 L550 750" stroke="#ccecff" stroke-width="8"/>
+    <path d="M1030 750 L1450 750" stroke="#ccecff" stroke-width="8"/>
+    <path d="M550 750 L700 680 L820 750" fill="none" stroke="#dff5ff" stroke-width="5"/>
+    <path d="M820 750 L980 680 L1030 750" fill="none" stroke="#dff5ff" stroke-width="5"/>
+  </g>
+
+  <g opacity="0.8" fill="#7ee6b8">
+    <rect x="260" y="780" width="80" height="18" rx="4"/>
+    <rect x="620" y="780" width="110" height="18" rx="4"/>
+    <rect x="1045" y="780" width="120" height="18" rx="4"/>
+  </g>
+</svg>
